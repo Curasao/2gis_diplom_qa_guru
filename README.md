@@ -7,3 +7,5 @@ API-тесты для сервиса, который хранит избранн
 2. Включите виртуальное окружение python -m venv my-first-env
 3. Установите зависимости pip install -r requirements.txt
 
+![report.PNG](Results%20and%20reports/report.PNG)
+![report_allure.PNG](Results%20and%20reports/report_allure.PNG)
