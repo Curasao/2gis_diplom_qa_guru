@@ -65,17 +65,35 @@ class Test_create_Place:
             if response.status_code == 200:
                 print(f"ID созданного места: {response.json()['id']}")
 
-
-    def test_create_place_valid_name(self, session: requests.Session, base_url: str, valid_title, auth_headers):
-        with allure.step("Создание избранного места с валидными данными"):
+    def test_create_place_valid_name(self, session: requests.Session, base_url: str, valid_favorite_data, auth_headers):
+        with allure.step("Создание избранного места с валидным именем"):
             response = session.post(
                 f"{base_url}/v1/favorites",
-                data={response.json(valid_title)},
+                data=valid_favorite_data,
                 headers=auth_headers
             )
-            print(f"Создание с валидным имененм: {response.status_code}")
+            print(f"Создание с валидным именем: {response.status_code}")
             assert response.status_code == 200
 
+    def test_create_place_valid_color(self, session: requests.Session, base_url: str, valid_favorite_data, auth_headers,valid_color):
+        with allure.step("Создание избранного места с валидным цветом"):
+            response = session.post(
+                f"{base_url}/v1/favorites",
+                data=valid_favorite_data,
+                headers=auth_headers
+            )
+            print(f"Создание с валидным цветом: {response.status_code}")
+            assert response.status_code == 200
+
+    def test_create_place_invalid_color(self, session: requests.Session, base_url: str, invalid_payloads, auth_headers,valid_color):
+        with allure.step("Создание избранного места с невалидным цветом"):
+            response = session.post(
+                f"{base_url}/v1/favorites",
+                data=invalid_payloads[0],
+                headers=auth_headers
+            )
+            print(f"Создание с невалидным цветом: {response.status_code}")
+            assert response.status_code == 400
 
 
 
