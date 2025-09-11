@@ -7,6 +7,5 @@ API-тесты для сервиса, который хранит избранн
 2. Включите виртуальное окружение python -m venv my-first-env
 3. Установите зависимости pip install -r requirements.txt
 
-![Иллюстрация отчета](https://github.com/Curasao/2gis_test_task_API/tree/main/Results%20and%20reports/allure-отчет.png)
-
-![Иллюстрация отчета](https://github.com/Curasao/2gis_test_task_API/tree/main/Results%20and%20reports/отчет.png)
+![allure_отчет.PNG](Results%20and%20reports/allure_%D0%BE%D1%82%D1%87%D0%B5%D1%82.PNG)
+![отчет.PNG](Results%20and%20reports/%D0%BE%D1%82%D1%87%D0%B5%D1%82.PNG)
