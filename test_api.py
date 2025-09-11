@@ -96,4 +96,12 @@ class Test_create_Place:
             assert response.status_code == 400
 
 
-
+    def test_create_place_null_color(self, session: requests.Session, base_url: str, invalid_color, auth_headers,valid_color):
+        with allure.step("Создание избранного места с невалидным цветом null"):
+            response = session.post(
+                f"{base_url}/v1/favorites",
+                data=invalid_color,
+                headers=auth_headers
+            )
+            print(f"Создание с невалидным цветом null: {response.status_code}")
+            assert response.status_code == 400
