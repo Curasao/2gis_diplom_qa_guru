@@ -1,6 +1,7 @@
 import pytest
 import requests
-
+from random import choice
+import random
 
 
 @pytest.fixture(scope="session")
@@ -43,11 +44,12 @@ def valid_title() -> str:
 
 
 @pytest.fixture(scope="session")
-def valid_favorite_data(valid_title: str, valid_coordinates: dict) -> dict:
+def valid_favorite_data(valid_title: str, valid_coordinates: dict, valid_color: dict) -> dict:
     """валидные данные для создания избранного места"""
     return {
         "title": valid_title,
-        **valid_coordinates
+        **valid_coordinates,
+        **valid_color
     }
 
 
@@ -61,9 +63,18 @@ def long_title() -> str:
 def invalid_payloads() -> list:
     """невалидные данные для негативных тестов"""
     return [
-        {"title": "ok", "lat": "abc", "lon": "xyz"},
+        {"title": "ok", "lat": "abc", "lon": "xyz", "color": "фиолетовый"},
 
     ]
 @pytest.fixture(scope="session")
 def session():
     return requests.Session()
+
+@pytest.fixture(scope="session")
+def valid_color() -> dict:
+    """валидный цвет с координатами для тестов"""
+    colors = ["blue", "yellow", "green", "red"]
+    return {
+        "color": random.choice(colors),
+
+    }
