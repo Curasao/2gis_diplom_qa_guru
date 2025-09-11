@@ -12,8 +12,9 @@ class TestAuth:
 
 
     def test_auth(self, base_url:str):
+        with allure.step("Тестируем создание токена")
         response = requests.post(
-            url="https://regions-test.2gis.com/v1/auth/tokens",
+            url=f"{base_url}/v1/auth/tokens",
             allow_redirects=False, timeout=10,
             verify=False
         )
@@ -23,6 +24,7 @@ class TestAuth:
 
 
     def test_token_expires(self,session: requests.Session, base_url: str):
+        with allure.step("Истечение токена")
         """токен истекает через 2000мс"""
         # получаем токен
         response = session.post(f"{base_url}/v1/auth/tokens")
@@ -48,14 +50,20 @@ class TestAuth:
 
 
 class Test_create_Place:
-    def test_create_place(self,session: requests.Session, base_url: str):
-        response = session.post(f"{base_url}/v1/favorites")
-        print(f"Создание места: {response.status_code}")
-        assert response.status_code == 200
+    def test_create_place_invalid_data(self, session: requests.Session, base_url: str, invalid_payloads, auth_headers):
+        with allure.step("Создание избранного места с невалидными данными")
+        response = requests.post(
+            f"{base_url}/v1/favorites",
+            data=invalid_payloads[0],
+            headers=auth_headers
+        )
+        print(f"Создание места с невалидными данными: {response.status_code}")
+        assert response.status_code == 400
 
     def test_create_place_valid_data(self,session: requests.Session, base_url: str,valid_favorite_data, valid_coordinates,auth_headers):
-        valid_data = {'title': 'Театр', 'lat': 55.028254, 'lon': 82.918501}
-        response = requests.post(f"{base_url}/v1/favorites", data=valid_coordinates, headers=auth_headers)
+        with allure.step("Создание избранного места с валидными данными")
+        data = valid_coordinates
+        response = requests.post(f"{base_url}/v1/favorites", data=valid_favorite_data, headers=auth_headers)
         print(f"Создание с валидными данными: {response.status_code}")
         if response.status_code == 200:
             print(f"ID созданного места: {response.json()['id']}")
