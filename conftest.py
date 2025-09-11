@@ -78,3 +78,11 @@ def valid_color() -> dict:
         "color": random.choice(colors),
 
     }
+@pytest.fixture(scope="session")
+def invalid_color() -> dict:
+    """валидный цвет с координатами для тестов"""
+
+    return {
+        "color": "null",
+
+    }
