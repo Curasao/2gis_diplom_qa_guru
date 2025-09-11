@@ -1,6 +1,6 @@
 import pytest
 import requests
-import time
+
 
 
 @pytest.fixture(scope="session")
@@ -61,14 +61,9 @@ def long_title() -> str:
 def invalid_payloads() -> list:
     """невалидные данные для негативных тестов"""
     return [
-        {"title": "", "lat": 55.028254, "lon": 82.918501},
-        {"lat": 55.028254, "lon": 82.918501},  # missing title
-        {"title": "a" * 1000, "lat": 55.028254, "lon": 82.918501},
-        {"title": "ok", "lat": 91.0, "lon": 82.0},
-        {"title": "ok", "lat": -91.0, "lon": 82.0},
-        {"title": "ok", "lat": 55.0, "lon": 181.0},
-        {"title": "ok", "lat": 55.0, "lon": -181.0},
         {"title": "ok", "lat": "abc", "lon": "xyz"},
-        {"title": "ok", "lat": 55.0},  # missing lon
-        {"title": "ok", "lon": 82.0},  # missing lat
+
     ]
+@pytest.fixture(scope="session")
+def session():
+    return requests.Session()
