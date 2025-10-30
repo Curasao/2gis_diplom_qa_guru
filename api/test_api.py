@@ -5,7 +5,7 @@ import time
 
 import allure
 
-from conftest import auth_headers
+from api.conftest import auth_headers
 
 
 class TestAuth:
