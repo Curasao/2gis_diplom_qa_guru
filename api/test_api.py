@@ -9,6 +9,9 @@ from api.conftest import auth_headers
 
 
 class TestAuth:
+    @allure.feature("Авторизация")
+    @allure.story("Создание токена")
+    @allure.title("Тестирование создания токена авторизации")
     def test_auth(self, base_url:str):
         with allure.step("Тестируем создание токена"):
             response = requests.post(
@@ -20,6 +23,9 @@ class TestAuth:
             assert response.status_code == 200
             assert response.cookies.get("token") is not None
 
+    @allure.feature("Авторизация")
+    @allure.story("Истечение срока токена")
+    @allure.title("Тестирование истечения срока действия токена")
     def test_token_expires(self, session: requests.Session, base_url: str):
         with allure.step("Истечение токена"):
             # получаем токен
@@ -43,7 +49,10 @@ class TestAuth:
             print(f"Истечение токена: {response.status_code}")
             assert response.status_code == 401
 
+@allure.feature("Управление избранными местами")
 class Test_create_Place:
+    @allure.story("Создание мест с невалидными данными")
+    @allure.title("Создание места с невалидными данными")
     def test_create_place_invalid_data(self, session: requests.Session, base_url: str, invalid_payloads, auth_headers):
         with allure.step("Создание избранного места с невалидными данными"):
             response = session.post(
